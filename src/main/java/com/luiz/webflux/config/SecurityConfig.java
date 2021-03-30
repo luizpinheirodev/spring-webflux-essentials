@@ -19,8 +19,10 @@ public class SecurityConfig {
         return http
                 .csrf().disable()
                 .authorizeExchange()
-                .pathMatchers(HttpMethod.POST, "/anime/**").hasRole("ADMIN")
                 .pathMatchers(HttpMethod.GET, "/anime/**").hasRole("USER")
+                .pathMatchers(HttpMethod.POST, "/anime/**").hasRole("ADMIN")
+                .pathMatchers(HttpMethod.PUT, "/anime/**").hasRole("ADMIN")
+                .pathMatchers(HttpMethod.DELETE, "/anime/**").hasRole("ADMIN")
                 .anyExchange().authenticated()
                 .and().formLogin()
                 .and().httpBasic()
