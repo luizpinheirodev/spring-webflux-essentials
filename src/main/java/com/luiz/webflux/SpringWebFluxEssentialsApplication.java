@@ -9,11 +9,15 @@ import reactor.blockhound.BlockHound;
 public class SpringWebFluxEssentialsApplication {
 
     static {
-        BlockHound.install();
+        BlockHound.install(
+                builder -> builder.allowBlockingCallsInside("java.io.InputStream", "readNBytes")
+                        .allowBlockingCallsInside("java.io.InputStream", "readNBytes")
+                        .allowBlockingCallsInside("java.io.FilterInputStream", "read")
+        );
     }
 
     public static void main(String[] args) {
-        System.out.println(PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("devdojo"));
+//        System.out.println(PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("devdojo"));
         SpringApplication.run(SpringWebFluxEssentialsApplication.class, args);
     }
 
